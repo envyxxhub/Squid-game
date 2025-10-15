@@ -1,0 +1,84 @@
+--// 🌸 Made by Envyxx 💫 | Rayfield 2025 UI
+
+local TweenService = game:GetService("TweenService")
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+--// Create Window with Key System
+local Window = Rayfield:CreateWindow({
+    Name = "🌟 Auto Win Panel 🌟 | Made by Envyxx 💫",
+    LoadingTitle = "⚡ Loading Rayfield 2025 UI...",
+    LoadingSubtitle = "🌸 Created by Envyxx 💫",
+    Theme = "Bloom",
+
+    ToggleUIKeybind = "K",
+
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = nil,
+        FileName = "Envyxx Hub"
+    },
+
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+
+    KeySystem = true, -- Enable Key System
+    KeySettings = {
+        Title = "EnvyxxKeySystem",
+        Subtitle = "Key System",
+        Note = "Key Is HelloWorld_Key12345000", -- Updated note
+        FileName = "Envyxxkey",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"HelloWorld_Key12345000"}
+    }
+})
+
+--// Auto Tab
+local AutoTab = Window:CreateTab("🚀 Auto")
+
+--// Auto Win Toggle
+local AutoToggle = AutoTab:CreateToggle({
+    Name = "🏆 Auto Win 🌈",
+    CurrentValue = false,
+    Flag = "AutoWinToggle",
+    Callback = function(Value)
+        _G.AutoWin = Value
+        if Value then
+            Rayfield:Notify({
+                Title = "🏁 Auto Win Activated!",
+                Content = "Tweening every 0.1 seconds... ✨",
+                Duration = 3
+            })
+            task.spawn(function()
+                while _G.AutoWin do
+                    local player = game.Players.LocalPlayer
+                    local char = player and player.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+
+                    if hrp then  
+                        -- Teleport to start  
+                        hrp.CFrame = CFrame.new(-743.60, -0.10, -532.09)  
+
+                        -- Tween smoothly to target Z  
+                        local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Linear)  
+                        local goal = {CFrame = CFrame.new(-743.60, -0.10, -540.09)}  
+                        TweenService:Create(hrp, tweenInfo, goal):Play()  
+                    end  
+
+                    task.wait(0.1)  
+                end  
+            end)
+        else
+            Rayfield:Notify({  
+                Title = "🛑 Auto Win Disabled",  
+                Content = "Tween stopped ❌",  
+                Duration = 3  
+            })
+        end
+    end
+})
+
+Rayfield:LoadConfiguration()
